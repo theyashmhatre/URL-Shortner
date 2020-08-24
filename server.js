@@ -48,9 +48,10 @@ app.patch("/:slug", async (req, res, callback) => {
 
 if (process.env.NODE_ENV === "production") {
     app.use(express.static("client/build"));
-    app.get('*', (req, res) => res.sendFile(path.resolve('build', 'index.html')));
 }
-
+app.get('*', (request, response) => {
+    response.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+});
 
 app.listen(PORT, () => console.log(`The server has started on port: ${PORT}`));
 
