@@ -8,19 +8,25 @@
     "build": "cd client && npm run build",
     "install-client": "cd client && npm install",
     "heroku-postbuild": "npm run install-client && npm run build",
-    "start": "node server.js",
-    "client": "cd client && npm start"
+    "start": "nodemon server.js",
+    "client": "cd client && npm start",
+    "dev": "concurrently \"npm run start\" \"npm run client\""
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "engines": {
+    "node": "12.18.2"
+  },
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "concurrently": "^5.3.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.0",
-    "nanoid": "^3.1.12"
+    "nanoid": "^3.1.12",
+    "nodemon": "^2.0.4"
   }
 }
