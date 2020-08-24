@@ -3,12 +3,11 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const path = require('path');
-const cors = require("cors");
 const Url = require("./models/url");
 const PORT = process.env.PORT || 4000;
 const { nanoid } = require("nanoid");
 app.use(express.json());
-app.use(cors());
+
 
 app.get("/:slug", async (req, res, next) => {
     const id = req.params.slug;
