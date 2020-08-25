@@ -6,6 +6,8 @@ const path = require('path');
 const Url = require("./models/url");
 const PORT = process.env.PORT || 4000;
 const { nanoid } = require("nanoid");
+const cors = require("cors");
+app.use(cors());
 app.use(express.json());
 
 
@@ -46,7 +48,7 @@ app.patch("/:slug", async (req, res, callback) => {
     }
 });
 
-app.use(express.static('client/public'));
+app.use(express.static('client/src/public'))
 
 app.use(express.static(path.join(__dirname, 'client/build')));
 
