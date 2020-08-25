@@ -46,13 +46,16 @@ app.patch("/:slug", async (req, res, callback) => {
     }
 });
 
-app.use(express.static('client/src/public'));
+app.use(express.static('client/src/public'))
 
 if (process.env.NODE_ENV === "production") {
     app.use(express.static("client/build"));
 }
+app.use(express.static(path.join(__dirname, 'client/build')));
 
-app.use('/static', express.static(path.join(__dirname, 'client/build')));
+app.get('/', function (req, res) {
+    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+});
 
 app.listen(PORT, () => console.log(`The server has started on port: ${PORT}`));
 
