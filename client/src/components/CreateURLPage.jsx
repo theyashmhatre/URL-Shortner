@@ -27,7 +27,6 @@ function CreateURLPage() {
             ...newURL,
             [event.target.name]: value
         });
-        console.log(newURL);
     }
 
 
@@ -44,7 +43,6 @@ function CreateURLPage() {
         );
         const receivedData = await receivedUrls.data;
         setUrls(receivedData);
-        console.log(receivedData);
         setName(userData.user.name);
     };
 
@@ -56,9 +54,7 @@ function CreateURLPage() {
                 "x-auth-token": userData.user.token,
             }
         };
-        console.log(id);
         const deletedUrl = await Axios.delete("/url/" + id, config);
-        console.log(deletedUrl);
         updateList();
     };
 
@@ -84,7 +80,6 @@ function CreateURLPage() {
                 config);
 
             updateList();
-            console.log(userData);
 
         } catch (err) {
             err.response.data.msg && setError(err.response.data.msg);
