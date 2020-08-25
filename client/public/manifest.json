@@ -1,6 +1,12 @@
 {
   "short_name": "URL Shortner",
-  "name": "Create React App Sample",
+  "name": "URL Shortner",
+  "icons": [
+    {
+      "src": "link.png",
+      "type": "image/png"
+    }
+  ],
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",
