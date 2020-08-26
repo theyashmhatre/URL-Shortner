@@ -7,6 +7,8 @@ function HomePage() {
     const [username, setUsername] = useState();
 
     const history = useHistory();
+    const register = () => history.push("/register");
+    const login = () => history.push("/login");
     const logout = () => setUserData({
         token: undefined,
         user: undefined,
@@ -18,7 +20,8 @@ function HomePage() {
             <div>
                 <h1 className="heading-top">Welcome to URL Shortner, {username}</h1>
             </div>
-            <div className="text-center"><button onClick={logout} className="btn btn-dark">Logout</button></div>
+            {userData.user ? <div className="text-center" ><button onClick={login} className="btn btn-dark" style={{ paddingRight: "10px" }}>Log in</button><button onClick={register} className="btn btn-dark" style={{ paddingRight: "10px" }}>Register</button></div> :
+                <div className="text-center"><button onClick={logout} className="btn btn-dark">Logout</button></div>}
         </div>
     );
 }
