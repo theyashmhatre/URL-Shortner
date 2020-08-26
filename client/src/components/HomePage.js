@@ -7,6 +7,10 @@ function HomePage() {
     const [username, setUsername] = useState();
 
     const history = useHistory();
+    const logout = () => setUserData({
+        token: undefined,
+        user: undefined,
+    });
 
     return (
         <div>
