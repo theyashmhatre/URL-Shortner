@@ -16,7 +16,7 @@ export default function Header() {
             <Navbar.Toggle />
             <Navbar.Collapse>
                 <Nav className="mr-auto">
-                    <Navbar.Brand href="/" onClick={home}>URL Shortner</Navbar.Brand>
+                    <Navbar.Brand href="/"><Link to="/">URL Shortner</Link></Navbar.Brand>
                 </Nav>
                 <Nav className="justify-content-end">
                     <Nav.Item onClick={home}>

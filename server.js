@@ -11,42 +11,42 @@ app.use(cors());
 app.use(express.json());
 
 
-app.get("/:slug", async (req, res, next) => {
-    const id = req.params.slug;
-    try {
-        const foundURL = await Url.findOne({ slug: id });
+// app.get("/:slug", async (req, res, next) => {
+//     const id = req.params.slug;
+//     try {
+//         const foundURL = await Url.findOne({ slug: id });
 
-        if (foundURL) {
-            Url.findOneAndUpdate({ slug: id }, { $inc: { views: 1 } }, { new: true }, function (err, response) {
-                if (err) {
-                    next(err);
-                } else {
-                    next(response);
-                }
-            });
-            res.redirect(foundURL.url);
-        }
-    } catch (error) {
-        console.log(error);
-    }
-});
+//         if (foundURL) {
+//             Url.findOneAndUpsdate({ slug: id }, { $inc: { views: 1 } }, { new: true }, function (err, response) {
+//                 if (err) {
+//                     next(err);
+//                 } else {
+//                     next(response);
+//                 }
+//             });
+//             res.redirect(foundURL.url);
+//         }
+//     } catch (error) {
+//         console.log(error);
+//     }
+// });
 
-app.patch("/:slug", async (req, res, callback) => {
-    const id = req.params.slug;
+// app.patch("/:slug", async (req, res, callback) => {
+//     const id = req.params.slug;
 
-    try {
-        Url.findOneAndUpdate({ slug: id }, { $inc: { views: 1 } }, { new: true }, function (err, response) {
-            if (err) {
-                callback(err);
-            } else {
-                callback(response);
-            }
-        });
+//     try {
+//         Url.findOneAndUpdate({ slug: id }, { $inc: { views: 1 } }, { new: true }, function (err, response) {
+//             if (err) {
+//                 callback(err);
+//             } else {
+//                 callback(response);
+//             }
+//         });
 
-    } catch (error) {
-        console.log(error);
-    }
-});
+//     } catch (error) {
+//         console.log(error);
+//     }
+// });
 
 
 app.use(express.static(path.join(__dirname, 'client/build')));
