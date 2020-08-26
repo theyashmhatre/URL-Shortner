@@ -7,15 +7,7 @@ function HomePage() {
     const [username, setUsername] = useState();
 
     const history = useHistory();
-    const logout = () => setUserData({
-        token: undefined,
-        user: undefined,
-    });
 
-    useEffect(() => {
-        if (!userData.user) { history.push("/login"); setUsername(""); }
-        else { setUsername(userData.user.name); }
-    });
     return (
         <div>
 
