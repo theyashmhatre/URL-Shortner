@@ -54,10 +54,10 @@ function App() {
         <BrowserRouter>
           <Header />
           <Switch>
-            <Route path="/" exact component={HomePage}></Route>
-            <Route path="/login" exact component={LoginPage}></Route>
-            <Route path="/register" exact component={RegisterPage}></Route>
-            <Route path="/create" exact component={CreateURLPage}></Route>
+            <Route exact path="/" component={HomePage}></Route>
+            <Route exact path="/login" component={LoginPage}></Route>
+            <Route exact path="/register" component={RegisterPage}></Route>
+            <Route exact path="/create" component={CreateURLPage}></Route>
           </Switch>
 
         </BrowserRouter>
