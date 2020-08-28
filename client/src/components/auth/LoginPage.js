@@ -63,7 +63,7 @@ function LoginPage() {
 
     return (
         < div >
-            <h1 className className="heading-top">Login</h1>
+            <h1 className="heading-top">Login</h1>
             <div>
                 <h5>Haven't registered yet? <Link to="/register">Register</Link></h5>
             </div>

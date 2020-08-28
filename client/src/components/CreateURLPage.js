@@ -54,7 +54,7 @@ function CreateURLPage() {
                 "x-auth-token": userData.token,
             }
         };
-        const deletedUrl = await Axios.delete("/url/" + id, config);
+        await Axios.delete("/url/" + id, config);
         updateList();
     };
 

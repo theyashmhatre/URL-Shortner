@@ -28,7 +28,7 @@ function HomePage() {
     useEffect(() => {
         if (!userData.token) { history.push("/login"); setUsername(""); }
         else { setName(); }
-    });
+    }, []);
     return (
         <div>
 
