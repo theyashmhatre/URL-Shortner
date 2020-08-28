@@ -75,7 +75,7 @@ function RegisterPage() {
 
             {error && <ErrorNotice message={error} clearError={() => setError(undefined)} />}
 
-            <Col xs={8} md={6} lg={5} style={{ margin: "auto" }}>
+            <Col xs={10} md={6} lg={5} style={{ margin: "auto" }}>
                 <Form onSubmit={onSubmit} className="form">
                     <Form.Group controlId="formBasicName">
                         <Form.Label>Name</Form.Label>

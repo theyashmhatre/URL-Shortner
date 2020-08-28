@@ -69,7 +69,7 @@ function LoginPage() {
             </div>
             {error && <ErrorNotice message={error} clearError={() => setError(undefined)} />}
 
-            <Col xs={8} md={6} lg={5} style={{ margin: "auto" }}>
+            <Col xs={10} md={6} lg={5} style={{ margin: "auto" }}>
                 <Form onSubmit={onSubmit}>
                     <Form.Group controlId="formBasicEmail">
                         <Form.Label>Email address</Form.Label>
