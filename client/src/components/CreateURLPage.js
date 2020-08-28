@@ -101,7 +101,7 @@ function CreateURLPage() {
             <h1 className="heading-top">Hello, {userName}!</h1>
             {error && <ErrorNotice message={error} clearError={() => setError(undefined)} />}
 
-            <Col xs={8} md={6} style={{ margin: "auto" }}>
+            <Col xs={10} md={6} style={{ margin: "auto" }}>
                 <Form onSubmit={onSubmit} style={{ paddingBottom: "30px" }}>
                     <Form.Group controlId="formBasicURL">
                         <Form.Label>URL</Form.Label>
