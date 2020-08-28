@@ -26,7 +26,7 @@ export default function AuthOptions() {
     return (
         <nav>
             {
-                userData.user ? (<li className="nav-item" onClick={logout}>
+                userData.token ? (<li className="nav-item" onClick={logout}>
                     <Link to="/" className="nav-link">Log out</Link></li>) :
                     (
                         < ul className="navbar-nav ml-auto">

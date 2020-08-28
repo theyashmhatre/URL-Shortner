@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import HomePage from "./components/HomePage";
 import LoginPage from "./components/auth/LoginPage";
 import RegisterPage from "./components/auth/RegisterPage";
@@ -9,6 +9,7 @@ import './App.css';
 import Axios from "axios";
 import UserContext from "./context/UserContext";
 import Header from './components/Layout/Header';
+import ConfirmPage from './components/ConfirmPage';
 
 function App() {
 
@@ -57,6 +58,8 @@ function App() {
             <Route exact path="/login" component={LoginPage}></Route>
             <Route exact path="/register" component={RegisterPage}></Route>
             <Route exact path="/create" component={CreateURLPage}></Route>
+            <Route exact path="/confirm/:id" component={ConfirmPage}></Route>
+            <Redirect from='*' to='/' />
           </Switch>
 
         </BrowserRouter>

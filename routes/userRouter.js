@@ -3,6 +3,10 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const auth = require("../middleware/auth");
 const User = require("../models/user");
+const emailController = require("../email/emailController");
+const sendEmail = require("../email/sendEmail");
+const templates = require("../email/emailTemplates");
+const msgs = require("../email/emailMsgs");
 
 router.post("/register", async (req, res) => {
 
@@ -37,8 +41,8 @@ router.post("/register", async (req, res) => {
         });
 
         const savedUser = await newUser.save();
-        res.json(savedUser);
-
+        sendEmail(email, templates.confirm(savedUser._id));
+        res.json({ savedUser, msg: msgs.confirm });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -60,6 +64,10 @@ router.post("/login", async (req, res) => {
         if (!user)
             return res.status(400).json({ msg: "No account with this email has been registered." });
 
+        if (!user.confirmed) {
+            sendEmail(email, templates.confirm(user._id));
+            return res.status(400).json({ msg: msgs.resend });
+        }
 
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch)
@@ -85,7 +93,7 @@ router.delete("/delete", auth, async (req, res) => {
     try {
         const deletedUser = await User.findByIdAndDelete(req.user);
         res.json(deletedUser);
-    } catch (error) {
+    } catch (err) {
         res.status(500).json({ error: err.message });
     }
 });
@@ -102,17 +110,21 @@ router.post("/tokenIsValid", async (req, res) => {
         if (!user) return res.json(false);
 
         return res.json(true);
-    } catch (error) {
+    } catch (err) {
         res.status(500).json({ error: err.message });
     }
 });
 
 router.get("/", auth, async (req, res) => {
     const user = await User.findById(req.user);
+    if (!user)
+        return res.status(400).json({ msg: "Error 404 : User Not Found" });
     res.json({
         name: user.name,
         id: user._id,
     });
 });
+
+router.get("/email/confirm/:id", emailController.confirmEmail);
 
 module.exports = router;

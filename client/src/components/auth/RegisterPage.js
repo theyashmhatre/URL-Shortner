@@ -13,7 +13,7 @@ function RegisterPage() {
         passwordCheck: ""
     });
 
-    const [error, setError] = useState();
+    const [notif, setNotif] = useState();
 
     const { userData, setUserData } = useContext(UserContext);
     const history = useHistory();
@@ -38,27 +38,14 @@ function RegisterPage() {
                 name: user.name
             };
 
-            await Axios.post(
+            const userReg = await Axios.post(
                 "/users/register",
                 newUser
             );
-
-            const loginRes = await Axios.post(
-                "/users/login",
-                { email: user.email, password: user.password }
-            );
-
-            setUserData({
-                token: loginRes.data.token,
-                user: loginRes.data.user,
-            });
-
-            localStorage.setItem("auth-token", loginRes.data.token);
-            localStorage.setItem("username", loginRes.data.user.name);
-            localStorage.setItem("id", loginRes.data.user.id);
-            history.push("/create");
+            setNotif(userReg.data.msg);
+            console.log(userReg);
         } catch (err) {
-            err.response.data.msg && setError(err.response.data.msg);
+            err.response.data.msg && setNotif(err.response.data.msg);
         }
     };
 
@@ -73,7 +60,7 @@ function RegisterPage() {
                 <h5>Already registered? <Link to="/login">Log In</Link></h5>
             </div>
 
-            {error && <ErrorNotice message={error} clearError={() => setError(undefined)} />}
+            {notif && <ErrorNotice message={notif} clearError={() => setNotif(undefined)} />}
 
             <Col xs={10} md={6} lg={5} style={{ margin: "auto" }}>
                 <Form onSubmit={onSubmit} className="form">

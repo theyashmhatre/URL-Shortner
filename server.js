@@ -21,6 +21,12 @@ app.get('/*', function (req, res) {
     res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
 });
 
+app.get("/wake-up", (req, res) => res.json("👌"));
+
+app.use('*', (req, res) => {
+    res.status(404).json({ msg: 'Not Found' });
+});
+
 app.listen(PORT, () => console.log(`The server has started on port: ${PORT}`));
 
 
