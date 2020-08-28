@@ -121,6 +121,9 @@ function CreateURLPage() {
                             name="slug"
                             onChange={handleChange}
                             value={newURL.slug} />
+                        <Form.Text className="text-muted">
+                            Final link will be https://ur1-s.herokuapp.com/slug
+    </Form.Text>
                     </Form.Group>
                     <input type="submit" value="Submit" className="btn btn-primary" />
                 </Form>
@@ -131,9 +134,10 @@ function CreateURLPage() {
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Url</th>
+                            <th>URL</th>
                             <th>Slug</th>
                             <th>Clicks</th>
+                            <th>Copy</th>
                             <th>Link</th>
                             <th>Delete</th>
                         </tr>
