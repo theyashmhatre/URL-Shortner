@@ -12,7 +12,7 @@ export default function Header() {
 
     return (
 
-        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+        <Navbar collapseOnSelect expand="md" bg="dark" variant="dark">
             <Navbar.Toggle />
             <Navbar.Collapse>
                 <Nav className="mr-auto">
