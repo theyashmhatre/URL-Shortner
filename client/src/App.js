@@ -13,13 +13,17 @@ import Header from './components/Layout/Header';
 function App() {
 
   const [userData, setUserData] = useState({
-    token: undefined,
-    user: undefined,
+    token: localStorage === null ? undefined : localStorage.getItem("auth-token"),
+    user: localStorage === null ? undefined : {
+      id: localStorage.getItem("id"),
+      name: localStorage.getItem("username")
+    },
   });
+
 
   useEffect(() => {
     const checkLoggedIn = async () => {
-      let token = localStorage.getItem("auth-token");
+      let token = userData.token;
       if (token === null) {
         localStorage.setItem("auth-token", "");
         token = "";
@@ -30,17 +34,13 @@ function App() {
         { headers: { "x-auth-token": token } }
       );
       if (tokenRes.data) {
-        const userRes = await Axios.get(
-          "/users/",
-          {
-            headers: { "x-auth-token": token }
-          });
+        const userRes = await Axios.get("/users/", {
+          headers: { "x-auth-token": token },
+        });
         setUserData({
           token,
           user: userRes.data,
-
         });
-        console.log(userRes);
       }
     };
 

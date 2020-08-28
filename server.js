@@ -47,12 +47,13 @@ app.use(express.json());
 //         console.log(error);
 //     }
 // });
-
+app.use("/users", require("./routes/userRouter"));
+app.use("/url", require("./routes/urlRouter"));
 
 app.use(express.static(path.join(__dirname, 'client/build')));
 app.use(express.static(path.join(__dirname, 'client/public')));
 
-app.get('/', function (req, res) {
+app.get('/*', function (req, res) {
     res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
 });
 
@@ -73,5 +74,3 @@ mongoose.connect(
     }
 );
 
-app.use("/users", require("./routes/userRouter"));
-app.use("/url", require("./routes/urlRouter"));

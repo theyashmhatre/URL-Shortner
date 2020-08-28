@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Form, Col } from "react-bootstrap";
 import Axios from "axios";
 import UserContext from "../../context/UserContext";
@@ -14,7 +14,7 @@ function LoginPage() {
 
     const [error, setError] = useState();
 
-    const { setUserData } = useContext(UserContext);
+    const { userData, setUserData } = useContext(UserContext);
     const history = useHistory();
 
 
@@ -49,11 +49,17 @@ function LoginPage() {
             });
 
             localStorage.setItem("auth-token", loginRes.data.token);
+            localStorage.setItem("username", loginRes.data.user.name);
+            localStorage.setItem("id", loginRes.data.user.id);
             history.push("/create");
         } catch (err) {
             err.response.data.msg && setError(err.response.data.msg);
         }
     };
+
+    useEffect(() => {
+        if (userData.token) { history.push("/create"); }
+    });
 
     return (
         < div >

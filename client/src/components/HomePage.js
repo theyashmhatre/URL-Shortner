@@ -7,14 +7,23 @@ function HomePage() {
     const [username, setUsername] = useState();
 
     const history = useHistory();
-    const logout = () => setUserData({
-        token: undefined,
-        user: undefined,
-    });
+    const logout = () => {
+        setUserData({
+            token: undefined,
+            user: undefined,
+        });
+        localStorage.setItem("auth-token", "");
+        localStorage.setItem("username", "");
+        localStorage.setItem("id", "");
+    };
+
+    const setName = () => {
+        setUsername(localStorage.getItem("username"));
+    };
 
     useEffect(() => {
-        if (!userData.user) { history.push("/login"); setUsername(""); }
-        else { setUsername(userData.user.name); }
+        if (!userData.token) { history.push("/login"); setUsername(""); }
+        else { setName(); }
     });
     return (
         <div>

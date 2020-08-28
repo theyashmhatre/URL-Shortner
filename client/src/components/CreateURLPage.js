@@ -14,7 +14,7 @@ function CreateURLPage() {
     });
 
     const [urls, setUrls] = useState([]);
-    const [name, setName] = useState();
+    const [userName, setUserName] = useState();
 
     const { userData } = useContext(UserContext);
     const history = useHistory();
@@ -34,7 +34,7 @@ function CreateURLPage() {
     const updateList = async () => {
         let config = {
             headers: {
-                "x-auth-token": userData.user.token,
+                "x-auth-token": userData.token,
             }
         };
         const receivedUrls = await Axios.get(
@@ -43,7 +43,7 @@ function CreateURLPage() {
         );
         const receivedData = await receivedUrls.data;
         setUrls(receivedData);
-        setName(userData.user.name);
+        setUserName(localStorage.getItem("username"));
     };
 
 
@@ -51,7 +51,7 @@ function CreateURLPage() {
     const deleteList = async (id) => {
         let config = {
             headers: {
-                "x-auth-token": userData.user.token,
+                "x-auth-token": userData.token,
             }
         };
         const deletedUrl = await Axios.delete("/url/" + id, config);
@@ -70,7 +70,7 @@ function CreateURLPage() {
 
             let config = {
                 headers: {
-                    "x-auth-token": userData.user.token,
+                    "x-auth-token": userData.token,
                 }
             };
 
@@ -93,12 +93,12 @@ function CreateURLPage() {
 
 
     useEffect(() => {
-        if (!userData.user) { history.push("/login"); }
+        if (!userData.token) { history.push("/login"); }
         else { updateList(); }
     }, []);
     return (
         <div>
-            <h1 className="heading-top">Hello, {name}!</h1>
+            <h1 className="heading-top">Hello, {userName}!</h1>
             {error && <ErrorNotice message={error} clearError={() => setError(undefined)} />}
 
             <Col xs={8} md={6} style={{ margin: "auto" }}>
