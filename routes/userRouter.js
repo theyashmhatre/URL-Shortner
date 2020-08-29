@@ -70,7 +70,6 @@ router.post("/login", async (req, res) => {
                 .status(400)
                 .json({ msg: "Invalid Credentials" });
 
-        console.log(user.confirmed);
         if (!user.confirmed) {
             console.log("sending email");
             console.log(user.email);

@@ -9,7 +9,6 @@ exports.confirmEmail = async (req, res) => {
 
     try {
         if (id.match(/^[0-9a-fA-F]{24}$/)) {
-            console.log("id matched");
             const user = await User.findById(id);
 
             if (!user)
@@ -22,7 +21,6 @@ exports.confirmEmail = async (req, res) => {
             if (user && !user.confirmed) {
                 await User.findByIdAndUpdate(id, { confirmed: true });
                 sendEmail(user.email, templates.verified());
-                console.log("inside loop");
                 return res.status(200).json({ msg: msgs.confirmed });
             }
             return res.status(400).json({ msg: "An error occured" });

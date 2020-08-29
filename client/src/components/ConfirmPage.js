@@ -26,7 +26,6 @@ export default function ConfirmPage(props) {
             const confirmed = await Axios.get(
                 "/users/email/confirm/" + newId
             );
-            console.log(confirmed.data);
 
             setIsConfirm(true);
             redirect = setTimeout(() => {
@@ -44,7 +43,6 @@ export default function ConfirmPage(props) {
 
             setTimeLeft(timeLeft - 1);
         }, 1000);
-        console.log(isConfirm);
 
         return () => clearInterval(intervalId);
 
