@@ -11,6 +11,7 @@ export default function Settings() {
     const [userName, setUserName] = useState();
     const history = useHistory();
     const [notif, setNotif] = useState();
+    const [deleted, setDeleted] = useState(false);
     const [user, setUser] = useState({
         email: ""
     });
@@ -50,6 +51,7 @@ export default function Settings() {
             setNotif(deleted.data.msg);
 
             if (deleted.status === 200) {
+                setDeleted(true);
 
                 localStorage.setItem("auth-token", "");
                 localStorage.setItem("username", "");
@@ -76,7 +78,7 @@ export default function Settings() {
     return (
 
         <div style={{ paddingTop: "20px" }}>
-            <h1 className="heading-top">Hello, {userName}!</h1>
+            <h1 className="heading-top">Hello, {deleted ? "Deleted Successfully" : userName}!</h1>
             {notif && <ErrorNotice message={notif} clearError={() => setNotif(undefined)} />}
             <Col xs={10} md={6} lg={5} style={{ margin: "auto" }}>
                 <Form onSubmit={onSubmit} className="form">

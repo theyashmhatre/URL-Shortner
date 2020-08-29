@@ -104,7 +104,6 @@ router.post("/delete", auth, async (req, res) => {
 
         const deletedUser = await User.findByIdAndDelete(user._id);
         const deletedURL = await Url.deleteMany({ userId: user._id });
-        console.log(deletedURL);
         sendEmail(email, templates.deleted());
         return res.status(200).json({ msg: msgs.deleted });
     } catch (err) {
