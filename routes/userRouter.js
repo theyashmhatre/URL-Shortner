@@ -7,6 +7,7 @@ const emailController = require("../email/emailController");
 const sendEmail = require("../email/sendEmail");
 const templates = require("../email/emailTemplates");
 const msgs = require("../email/emailMsgs");
+const Url = require("../models/url");
 
 router.post("/register", async (req, res) => {
 
@@ -102,6 +103,8 @@ router.post("/delete", auth, async (req, res) => {
                 .json({ msg: "Invalid Email. Please enter the correct email and retry." });
 
         const deletedUser = await User.findByIdAndDelete(user._id);
+        const deletedURL = await Url.deleteMany({ userId: user._id });
+        console.log(deletedURL);
         sendEmail(email, templates.deleted());
         return res.status(200).json({ msg: msgs.deleted });
     } catch (err) {
