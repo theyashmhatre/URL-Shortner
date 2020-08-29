@@ -71,8 +71,6 @@ router.post("/login", async (req, res) => {
                 .json({ msg: "Invalid Credentials" });
 
         if (!user.confirmed) {
-            console.log("sending email");
-            console.log(user.email);
             sendEmail(user.email, templates.confirm(user._id));
             return res.status(400).json({ msg: msgs.resend });
         }
@@ -95,9 +93,7 @@ router.post("/login", async (req, res) => {
 router.post("/delete", auth, async (req, res) => {
     try {
         let { email } = req.body;
-        console.log(email);
         const user = await User.findById(req.user);
-        console.log("usermail:" + user.email);
 
 
         if (email.toLowerCase() !== user.email.toLowerCase())

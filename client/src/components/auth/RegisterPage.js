@@ -44,7 +44,6 @@ function RegisterPage() {
                 newUser
             );
             setNotif(userReg.data.msg);
-            console.log(userReg);
             setUser({
                 name: "",
                 email: "",

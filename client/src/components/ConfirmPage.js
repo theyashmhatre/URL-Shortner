@@ -12,7 +12,6 @@ export default function ConfirmPage(props) {
     let redirect = null;
 
     const { id } = useParams();
-    console.log(id);
 
     const history = useHistory();
 

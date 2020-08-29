@@ -43,15 +43,12 @@ function LoginPage() {
                 "/users/login",
                 loginUser
             );
-            console.log(loginRes);
 
             if (loginRes.status === 200) {
                 setUserData({
                     token: loginRes.data.token,
                     user: loginRes.data.user,
                 });
-
-
 
                 localStorage.setItem("auth-token", loginRes.data.token);
                 localStorage.setItem("username", loginRes.data.user.name);

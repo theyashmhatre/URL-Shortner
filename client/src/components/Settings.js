@@ -42,14 +42,11 @@ export default function Settings() {
                     "x-auth-token": userData.token,
                 }
             };
-            console.log(userData.token);
-            console.log(userInfo);
 
             const deleted = await Axios.post(
                 "/users/delete",
                 userInfo,
                 config);
-            console.log(deleted);
             setNotif(deleted.data.msg);
 
             if (deleted.status === 200) {

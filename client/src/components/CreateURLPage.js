@@ -121,7 +121,7 @@ function CreateURLPage() {
                         <Form.Label>Slug</Form.Label>
                         <Form.Control
                             type="text"
-                            placeholder="Enter your preferred slug"
+                            placeholder="Enter your preferred slug (Optional)"
                             name="slug"
                             onChange={handleChange}
                             value={newURL.slug} />
