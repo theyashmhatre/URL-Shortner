@@ -15,7 +15,7 @@ function RegisterPage() {
 
     const [notif, setNotif] = useState();
 
-    const { userData, setUserData } = useContext(UserContext);
+    const { userData } = useContext(UserContext);
     const history = useHistory();
 
     function handleChange(event) {
@@ -29,6 +29,7 @@ function RegisterPage() {
 
     const onSubmit = async (e) => {
         e.preventDefault();
+        setNotif(undefined);
 
         try {
             const newUser = {

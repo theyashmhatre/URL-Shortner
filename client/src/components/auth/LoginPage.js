@@ -29,6 +29,7 @@ function LoginPage() {
 
     const onSubmit = async (e) => {
         e.preventDefault();
+        setNotif(undefined);
 
         try {
             const loginUser = {
@@ -68,7 +69,7 @@ function LoginPage() {
 
     return (
         < div >
-            <h1 className="heading-top">Login</h1>
+            <h1 className="heading-top">Log In</h1>
             <div>
                 <h5>Haven't registered yet? <Link to="/register">Register</Link></h5>
             </div>

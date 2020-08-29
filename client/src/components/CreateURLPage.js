@@ -5,6 +5,7 @@ import UserContext from "../context/UserContext";
 import { useHistory } from "react-router-dom";
 import ErrorNotice from './Layout/ErrorNotice';
 import TableList from "./TableList";
+import Loader from 'react-loader-spinner';
 
 function CreateURLPage() {
 
@@ -15,10 +16,11 @@ function CreateURLPage() {
 
     const [urls, setUrls] = useState([]);
     const [userName, setUserName] = useState();
+    const [loading, setLoading] = useState(false);
 
     const { userData } = useContext(UserContext);
     const history = useHistory();
-    const [error, setError] = useState();
+    const [notif, setNotif] = useState();
 
 
     function handleChange(event) {
@@ -44,6 +46,7 @@ function CreateURLPage() {
         const receivedData = await receivedUrls.data;
         setUrls(receivedData);
         setUserName(localStorage.getItem("username"));
+        setLoading(false);
     };
 
 
@@ -60,6 +63,7 @@ function CreateURLPage() {
 
     const onSubmit = async (event) => {
         event.preventDefault();
+        setNotif(undefined);
 
         try {
 
@@ -82,7 +86,7 @@ function CreateURLPage() {
             updateList();
 
         } catch (err) {
-            err.response.data.msg && setError(err.response.data.msg);
+            err.response.data.msg && setNotif(err.response.data.msg);
         }
         setNewURL({
             url: "",
@@ -94,12 +98,12 @@ function CreateURLPage() {
 
     useEffect(() => {
         if (!userData.token) { history.push("/login"); }
-        else { updateList(); }
+        else { updateList(); setLoading(true); }
     }, []);
     return (
         <div>
             <h1 className="heading-top">Hello, {userName}!</h1>
-            {error && <ErrorNotice message={error} clearError={() => setError(undefined)} />}
+            {notif && <ErrorNotice message={notif} clearError={() => setNotif(undefined)} />}
 
             <Col xs={10} md={6} style={{ margin: "auto" }}>
                 <Form onSubmit={onSubmit} style={{ paddingBottom: "30px" }}>
@@ -160,8 +164,16 @@ function CreateURLPage() {
                     </tbody>
 
                 </Table>
+                {loading ? <div style={{
+                    width: "100%",
+                    height: "100",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center"
+                }}><Loader type="ThreeDots" color="#2BAD60" height="100" width="100" /></div>
+                    : null}
             </Col>
-        </div>
+        </div >
     )
 
 }

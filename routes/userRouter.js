@@ -35,7 +35,7 @@ router.post("/register", async (req, res) => {
         const passwordHash = await bcrypt.hash(password, salt);
 
         const newUser = new User({
-            email: email,
+            email: email.toLowerCase(),
             password: passwordHash,
             name: name
         });
@@ -60,7 +60,7 @@ router.post("/login", async (req, res) => {
         if (!email || !password)
             return res.status(400).json({ msg: "Please fill up all the field and retry" });
 
-        const user = await User.findOne({ email: email });
+        const user = await User.findOne({ email: email.toLowerCase() });
         if (!user)
             return res.status(400).json({ msg: "No account with this email has been registered." });
 
@@ -92,10 +92,22 @@ router.post("/login", async (req, res) => {
     }
 });
 
-router.delete("/delete", auth, async (req, res) => {
+router.post("/delete", auth, async (req, res) => {
     try {
-        const deletedUser = await User.findByIdAndDelete(req.user);
-        res.json(deletedUser);
+        let { email } = req.body;
+        console.log(email);
+        const user = await User.findById(req.user);
+        console.log("usermail:" + user.email);
+
+
+        if (email.toLowerCase() !== user.email.toLowerCase())
+            return res
+                .status(400)
+                .json({ msg: "Invalid Email. Please enter the correct email and retry." });
+
+        const deletedUser = await User.findByIdAndDelete(user._id);
+        sendEmail(email, templates.deleted());
+        return res.status(200).json({ msg: msgs.deleted });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }

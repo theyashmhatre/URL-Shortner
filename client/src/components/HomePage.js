@@ -19,6 +19,7 @@ function HomePage() {
         localStorage.setItem("auth-token", "");
         localStorage.setItem("username", "");
         localStorage.setItem("id", "");
+        history.push("/login");
     };
 
     const setName = () => {
@@ -26,7 +27,7 @@ function HomePage() {
     };
 
     useEffect(() => {
-        if (!userData.token) { history.push("/login"); setUsername(""); }
+        if (!userData.token) { history.push("/login"); }
         else { setName(); }
     }, []);
     return (

@@ -12,6 +12,7 @@ export default function AuthOptions() {
 
     const register = () => history.push("/register");
     const login = () => history.push("/login");
+    const settings = () => history.push("/settings");
     const logout = () => {
         setUserData({
             token: undefined,
@@ -20,25 +21,40 @@ export default function AuthOptions() {
         localStorage.setItem("auth-token", "");
         localStorage.setItem("username", "");
         localStorage.setItem("id", "");
+        history.push("/login");
     };
 
 
     return (
         <nav>
             {
-                userData.token ? (<li className="nav-item" onClick={logout}>
-                    <Link to="/" className="nav-link">Log out</Link></li>) :
+                userData.token ?
+                    (
+                        < ul className="navbar-nav ml-auto">
+                            <Nav.Item onClick={settings}>
+                                <Nav.Link eventKey="3" as={Link} to="/settings">
+                                    Settings
+                                </Nav.Link>
+                            </Nav.Item>
+                            <Nav.Item onClick={logout}>
+                                <Nav.Link eventKey="4" as={Link} to="/logout">
+                                    Log out
+                                </Nav.Link>
+                            </Nav.Item>
+                        </ul>
+                    )
+                    :
                     (
                         < ul className="navbar-nav ml-auto">
                             <Nav.Item onClick={login}>
                                 <Nav.Link eventKey="3" as={Link} to="/login">
                                     Log In
-            </Nav.Link>
+                                </Nav.Link>
                             </Nav.Item>
                             <Nav.Item onClick={register}>
                                 <Nav.Link eventKey="4" as={Link} to="/register">
                                     Register
-            </Nav.Link>
+                                </Nav.Link>
                             </Nav.Item>
                         </ul>
                     )

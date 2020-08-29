@@ -18,7 +18,7 @@ const transporter = nodemailer.createTransport(credentials);
 module.exports = async (to, content) => {
 
     const contacts = {
-        from: process.env.MAIL_USER,
+        from: `URL Shortner <${process.env.MAIL_USER}>`,
         to
     };
 

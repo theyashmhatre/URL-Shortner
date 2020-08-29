@@ -5,11 +5,13 @@ import LoginPage from "./components/auth/LoginPage";
 import RegisterPage from "./components/auth/RegisterPage";
 import CreateURLPage from "./components/CreateURLPage";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import './App.css';
 import Axios from "axios";
 import UserContext from "./context/UserContext";
 import Header from './components/Layout/Header';
 import ConfirmPage from './components/ConfirmPage';
+import Settings from './components/Settings';
 
 function App() {
 
@@ -58,6 +60,7 @@ function App() {
             <Route exact path="/login" component={LoginPage}></Route>
             <Route exact path="/register" component={RegisterPage}></Route>
             <Route exact path="/create" component={CreateURLPage}></Route>
+            <Route exact path="/settings" component={Settings}></Route>
             <Route exact path="/confirm/:id" component={ConfirmPage}></Route>
             <Redirect from='*' to='/' />
           </Switch>

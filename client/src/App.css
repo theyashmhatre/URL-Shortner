@@ -12,7 +12,7 @@ h5{
 
 .errorNotice{
   text-align: center;
-  background-color: grey;
+  background-color: black;
   border: 1px solid grey;
   border-radius: 5px;
   color: white;
@@ -20,13 +20,22 @@ h5{
 }
 
 .errorButton{ 
+  padding: 0 10px;
   border-radius: 10px;
   color: white;
-  background-color: grey;
-  border: 1px solid grey;
+  background-color: black;
+  border: 1px solid black;
   font-size: 18px;
 }
 
 .errorButton:hover{
-  color: black;
+  color: yellow;
+}
+
+.confirmPage{
+  text-align: center;
+}
+
+.confirmPgHead{
+  padding: 20px;
 }

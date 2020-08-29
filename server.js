@@ -3,7 +3,6 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const path = require('path');
-const Url = require("./models/url");
 const PORT = process.env.PORT || 4000;
 const { nanoid } = require("nanoid");
 const cors = require("cors");
@@ -11,6 +10,7 @@ app.use(cors());
 app.use(express.json());
 
 
+app.get("/wake-up", (req, res) => res.json("👌"));
 app.use("/users", require("./routes/userRouter"));
 app.use("/url", require("./routes/urlRouter"));
 
@@ -20,8 +20,6 @@ app.use(express.static(path.join(__dirname, 'client/public')));
 app.get('/*', function (req, res) {
     res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
 });
-
-app.get("/wake-up", (req, res) => res.json("👌"));
 
 app.use('*', (req, res) => {
     res.status(404).json({ msg: 'Not Found' });
