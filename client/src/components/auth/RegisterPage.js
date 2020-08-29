@@ -44,6 +44,12 @@ function RegisterPage() {
             );
             setNotif(userReg.data.msg);
             console.log(userReg);
+            setUser({
+                name: "",
+                email: "",
+                password: "",
+                passwordCheck: ""
+            });
         } catch (err) {
             err.response.data.msg && setNotif(err.response.data.msg);
         }

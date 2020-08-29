@@ -19,9 +19,13 @@ exports.confirmEmail = async (req, res) => {
                 return res.status(200).json({ msg: msgs.alreadyConfirmed });
 
 
-            await User.findByIdAndUpdate(id, { confirmed: true })
-                .then(() => res.status(200).json({ msg: msgs.confirmed }));
-            sendEmail(user.email, templates.verified());
+            if (user && !user.confirmed) {
+                await User.findByIdAndUpdate(id, { confirmed: true });
+                sendEmail(user.email, templates.verified());
+                console.log("inside loop");
+                return res.status(200).json({ msg: msgs.confirmed });
+            }
+            return res.status(400).json({ msg: "An error occured" });
         }
         return res.json({ msg: "User does not exist. Invalid ID" });
 

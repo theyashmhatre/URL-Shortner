@@ -42,7 +42,7 @@ router.post("/register", async (req, res) => {
 
         const savedUser = await newUser.save();
         sendEmail(email, templates.confirm(savedUser._id));
-        res.json({ savedUser, msg: msgs.confirm });
+        res.status(200).json({ savedUser, msg: msgs.confirm });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -64,24 +64,28 @@ router.post("/login", async (req, res) => {
         if (!user)
             return res.status(400).json({ msg: "No account with this email has been registered." });
 
-        if (!user.confirmed) {
-            sendEmail(email, templates.confirm(user._id));
-            return res.status(400).json({ msg: msgs.resend });
-        }
-
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch)
             return res
                 .status(400)
                 .json({ msg: "Invalid Credentials" });
 
+        console.log(user.confirmed);
+        if (!user.confirmed) {
+            console.log("sending email");
+            console.log(user.email);
+            sendEmail(user.email, templates.confirm(user._id));
+            return res.status(400).json({ msg: msgs.resend });
+        }
+
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
-        res.json({
+        res.status(200).json({
             token,
             user: {
                 id: user._id,
                 name: user.name
             },
+            msg: msgs.confirmed
         });
 
     } catch (err) {

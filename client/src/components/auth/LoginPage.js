@@ -12,7 +12,7 @@ function LoginPage() {
         password: ""
     });
 
-    const [error, setError] = useState();
+    const [notif, setNotif] = useState();
 
     const { userData, setUserData } = useContext(UserContext);
     const history = useHistory();
@@ -42,18 +42,23 @@ function LoginPage() {
                 "/users/login",
                 loginUser
             );
+            console.log(loginRes);
 
-            setUserData({
-                token: loginRes.data.token,
-                user: loginRes.data.user,
-            });
+            if (loginRes.status === 200) {
+                setUserData({
+                    token: loginRes.data.token,
+                    user: loginRes.data.user,
+                });
 
-            localStorage.setItem("auth-token", loginRes.data.token);
-            localStorage.setItem("username", loginRes.data.user.name);
-            localStorage.setItem("id", loginRes.data.user.id);
-            history.push("/create");
+
+
+                localStorage.setItem("auth-token", loginRes.data.token);
+                localStorage.setItem("username", loginRes.data.user.name);
+                localStorage.setItem("id", loginRes.data.user.id);
+                history.push("/create");
+            }
         } catch (err) {
-            err.response.data.msg && setError(err.response.data.msg);
+            err.response.data.msg && setNotif(err.response.data.msg);
         }
     };
 
@@ -67,7 +72,7 @@ function LoginPage() {
             <div>
                 <h5>Haven't registered yet? <Link to="/register">Register</Link></h5>
             </div>
-            {error && <ErrorNotice message={error} clearError={() => setError(undefined)} />}
+            {notif && <ErrorNotice message={notif} clearError={() => setNotif(undefined)} />}
 
             <Col xs={10} md={6} lg={5} style={{ margin: "auto" }}>
                 <Form onSubmit={onSubmit}>

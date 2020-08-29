@@ -6,12 +6,16 @@ import { Link, useParams, useHistory } from "react-router-dom";
 export default function ConfirmPage(props) {
     const [msg, setMsg] = useState("");
     const [isConfirm, setIsConfirm] = useState(false);
+    const [timeLeft, setTimeLeft] = useState(5);
+
+    let redirect = null;
+
     const { id } = useParams();
     console.log(id);
 
     const history = useHistory();
 
-    const login = () => history.push("/create");
+    const login = () => history.push("/login");
 
 
 
@@ -23,22 +27,36 @@ export default function ConfirmPage(props) {
                 "/users/email/confirm/" + newId
             );
             console.log(confirmed.data);
-            if (confirmed.status) {
-                setIsConfirm(true);
-                interval = setInterval(() => {
-                    history.push("/login");
-                }, 5000);
-            }
+
+            setIsConfirm(true);
+            redirect = setTimeout(() => {
+                history.push("/login");
+            }, 5000);
+
             setMsg(confirmed.data.msg);
+            return () => clearInterval(interval);
         };
-        confirmUser();
-    }, []);
+        if (!isConfirm) {
+            confirmUser();
+        }
+        clearTimeout(redirect);
+        const intervalId = setInterval(() => {
+
+            setTimeLeft(timeLeft - 1);
+        }, 1000);
+        console.log(isConfirm);
+
+        return () => clearInterval(intervalId);
+
+    }, [timeLeft]);
+
+
 
 
     return (
         <div>
             {isConfirm ? <div><h6>{msg}</h6>
-                <p>You will be redirected to the Login page in 5 seconds. If not redirected, please <a href="" onClick={login}>click here.</a></p></div>
+                <p>You will be redirected to the Login page in {timeLeft}. If not redirected, please <a href="" onClick={login}>click here.</a></p></div>
                 : <Spinner size='8x' spinning={'spinning'} />}
         </div>
     )
