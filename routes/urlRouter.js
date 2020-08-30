@@ -17,7 +17,7 @@ router.post("/add", auth, async (req, res) => {
             slug = nanoid(4);
         }
 
-        const existingSlug = await Url.findOne({ slug: slug });
+        const existingSlug = await Url.findOne({ slug: slug.toLowerCase() });
         if (existingSlug)
             return res
                 .status(400)
