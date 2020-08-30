@@ -21,6 +21,7 @@ export default function ForgotPassword() {
 
     const onSubmit = async (e) => {
         e.preventDefault();
+        setNotif(undefined);
         try {
             const userInfo = {
                 email: user.email

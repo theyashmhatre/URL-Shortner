@@ -28,6 +28,7 @@ export default function PasswordReset() {
 
     const onSubmit = async (e) => {
         e.preventDefault();
+        setNotif(undefined);
         try {
             const newPassword = {
                 password: user.password,
@@ -108,15 +109,15 @@ export default function PasswordReset() {
                         </Form>
                     </Col></div>
             ) :
-                <div style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    height: "100%",
-                    padding: "20px"
-                }}>{notif && <ErrorNotice message={notif} clearError={() => setNotif(undefined)} />}
-                    <br></br>
-                    <Loader type="ThreeDots" color="#2BAD60" height="100" width="100" /></div>}
+                <div>{notif && <ErrorNotice message={notif} clearError={() => setNotif(undefined)} />}
+                    <div style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        height: "100%",
+                        padding: "20px"
+                    }}>
+                        <Loader type="ThreeDots" color="#2BAD60" height="100" width="100" /></div></div>}
         </div>
     )
 }

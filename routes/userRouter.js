@@ -164,21 +164,21 @@ router.post("/reset/verify/:id/:token", async (req, res) => {
             const user = await User.findById(id);
 
             if (!user)
-                return res.json({ msg: msgs.couldNotFind, verify: false });
+                return res.json({ msg: msgs.couldNotFind + msgs.redirecting, verify: false });
 
             console.log(user.passToken);
             console.log(token);
             if (user.passToken !== token) {
                 console.log("inside");
                 return res
-                    .json({ msg: "Link is not valid. We've already sent you a new one!", verify: false });
+                    .json({ msg: "Link is not valid. We've already sent you a new one!" + msgs.redirecting, verify: false });
             }
 
             if (user.passToken === token) {
                 return res.status(200).json({ msg: "Link Verified", verify: true });
             }
         }
-        return res.json({ msg: "User does not exist. Invalid ID", verify: false });
+        return res.json({ msg: "User does not exist. Invalid ID" + msgs.redirecting, verify: false });
 
     } catch (err) {
         res.status(500).json({ error: err.message });
