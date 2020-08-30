@@ -10,16 +10,16 @@ module.exports = {
         Click here to verify your account
       </a>
     `,
-    text: `Copy and paste this link: ${PORT}/confirm/${id}`
+    text: `Copy and paste this link: https://ur1-sh.herokuapp.com/confirm/${id}`
   }),
 
   verified: () => ({
     subject: 'Your account has been verified!',
     html: `
     <h2 align="center">Welcome to URL Shortner</h2>
-      <a href="http://ur1-sh.herokuapp.com" style="text-align:center">Visit URL Shortner</a>
+      <a href="https://ur1-sh.herokuapp.com" style="text-align:center">Visit URL Shortner</a>
     `,
-    text: `Copy and paste this link: http://ur1-sh.herokuapp.com`
+    text: `Copy and paste this link: https://ur1-sh.herokuapp.com`
   }),
 
   deleted: () => ({
@@ -28,9 +28,9 @@ module.exports = {
     <h1 align="center">We'll miss you!</h1>
     <p>Account successfully deleted</p><br>
     <p>Regards,<br>URL Shortner Team</p>
-      <a href="http://ur1-sh.herokuapp.com" align="left">URL Shortner</a>
+      <a href="https://ur1-sh.herokuapp.com" align="left">URL Shortner</a>
     `,
-    text: `Copy and paste this link: http://ur1-sh.herokuapp.com`
+    text: `Copy and paste this link: https://ur1-sh.herokuapp.com`
   }),
 
   passwordResetLink: (id, token) => ({
@@ -48,9 +48,9 @@ module.exports = {
     subject: 'Your password has been reset successfully!',
     html: `
     <h2 align="center">Password Reset Successful</h2>
-      <a href="http://ur1-sh.herokuapp.com" style="text-align:center">Visit URL Shortner</a>
+      <a href="https://ur1-sh.herokuapp.com" style="text-align:center">Visit URL Shortner</a>
     `,
-    text: `Copy and paste this link: http://ur1-sh.herokuapp.com`
+    text: `Copy and paste this link: https://ur1-sh.herokuapp.com`
   }),
 
 };

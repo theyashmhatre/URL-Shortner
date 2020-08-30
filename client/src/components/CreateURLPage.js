@@ -15,6 +15,7 @@ function CreateURLPage() {
     });
 
     const [urls, setUrls] = useState([]);
+    const [buttonLoader, setButtonLoader] = useState(false);
     const [userName, setUserName] = useState();
     const [loading, setLoading] = useState(false);
 
@@ -63,6 +64,7 @@ function CreateURLPage() {
 
     const onSubmit = async (event) => {
         event.preventDefault();
+        setButtonLoader(true);
         setNotif(undefined);
 
         try {
@@ -92,6 +94,7 @@ function CreateURLPage() {
             url: "",
             slug: ""
         });
+        setButtonLoader(false);
 
     };
 
@@ -129,7 +132,7 @@ function CreateURLPage() {
                             Final link will be https://ur1-s.herokuapp.com/slug
     </Form.Text>
                     </Form.Group>
-                    <input type="submit" value="Submit" className="btn btn-primary" />
+                    <div><button type="submit" className="btn btn-primary">{buttonLoader ? <Loader type="ThreeDots" color="#00BFFF" height={30} width={50} /> : "Submit"}</button></div>
                 </Form>
             </Col>
 

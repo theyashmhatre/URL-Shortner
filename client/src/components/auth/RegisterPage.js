@@ -4,6 +4,7 @@ import Axios from "axios";
 import UserContext from "../../context/UserContext";
 import { useHistory, Link } from 'react-router-dom';
 import ErrorNotice from '../Layout/ErrorNotice';
+import Loader from "react-loader-spinner";
 
 function RegisterPage() {
     const [user, setUser] = useState({
@@ -14,6 +15,7 @@ function RegisterPage() {
     });
 
     const [notif, setNotif] = useState();
+    const [buttonLoader, setButtonLoader] = useState(false);
 
     const { userData } = useContext(UserContext);
     const history = useHistory();
@@ -29,6 +31,7 @@ function RegisterPage() {
 
     const onSubmit = async (e) => {
         e.preventDefault();
+        setButtonLoader(true);
         setNotif(undefined);
 
         try {
@@ -53,6 +56,7 @@ function RegisterPage() {
         } catch (err) {
             err.response.data.msg && setNotif(err.response.data.msg);
         }
+        setButtonLoader(false);
     };
 
     useEffect(() => {
@@ -111,7 +115,7 @@ function RegisterPage() {
                             onChange={handleChange}
                             value={user.passwordCheck} />
                     </Form.Group>
-                    <div className="text-center"><input type="submit" onSubmit={onSubmit} value="Register" className="btn btn-primary" /></div>
+                    <div className="text-center"><button type="submit" className="btn btn-primary">{buttonLoader ? <Loader type="ThreeDots" color="#00BFFF" height={28} width={50} /> : "Register"}</button></div>
 
                 </Form>
             </Col>

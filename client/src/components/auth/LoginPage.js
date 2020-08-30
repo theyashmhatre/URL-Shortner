@@ -4,6 +4,7 @@ import Axios from "axios";
 import UserContext from "../../context/UserContext";
 import { useHistory, Link } from 'react-router-dom';
 import ErrorNotice from "../Layout/ErrorNotice";
+import Loader from "react-loader-spinner";
 
 function LoginPage() {
 
@@ -13,6 +14,7 @@ function LoginPage() {
     });
 
     const [notif, setNotif] = useState();
+    const [buttonLoader, setButtonLoader] = useState(false);
 
     const { userData, setUserData } = useContext(UserContext);
     const history = useHistory();
@@ -29,6 +31,7 @@ function LoginPage() {
 
     const onSubmit = async (e) => {
         e.preventDefault();
+        setButtonLoader(true);
         setNotif(undefined);
 
         try {
@@ -55,9 +58,11 @@ function LoginPage() {
                 localStorage.setItem("id", loginRes.data.user.id);
                 history.push("/create");
             }
+
         } catch (err) {
             err.response.data.msg && setNotif(err.response.data.msg);
         }
+        setButtonLoader(false);
     };
 
     useEffect(() => {
@@ -100,7 +105,7 @@ function LoginPage() {
                     </Form.Group>
                     <p align="center">Forgot Password? <a href="/forgot/password">Click here</a></p>
 
-                    <div className="text-center"><input type="submit" value="Login" className="btn btn-primary" /></div>
+                    <div className="text-center"><button type="submit" className="btn btn-primary">{buttonLoader ? <Loader type="ThreeDots" color="#00BFFF" height={30} width={40} /> : "Login"}</button></div>
 
                 </Form>
             </Col>

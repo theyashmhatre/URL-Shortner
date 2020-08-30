@@ -4,12 +4,14 @@ import Axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import UserContext from "../context/UserContext";
 import ErrorNotice from "./Layout/ErrorNotice";
+import Loader from 'react-loader-spinner';
 
 export default function Settings() {
 
     const { userData, setUserData } = useContext(UserContext);
     const [userName, setUserName] = useState();
     const history = useHistory();
+    const [buttonLoader, setButtonLoader] = useState(false);
     const [notif, setNotif] = useState();
     const [deleted, setDeleted] = useState(false);
     const [user, setUser] = useState({
@@ -30,6 +32,7 @@ export default function Settings() {
 
     const onSubmit = async (e) => {
         e.preventDefault();
+        setButtonLoader(true);
         setNotif(undefined);
 
         try {
@@ -68,6 +71,7 @@ export default function Settings() {
         } catch (err) {
             err.response.data.msg && setNotif(err.response.data.msg);
         }
+        setButtonLoader(false);
     };
 
 
@@ -95,7 +99,7 @@ export default function Settings() {
                             Once your click delete, you won't be able to retrieve your data.
                     </Form.Text>
                     </Form.Group>
-                    <div className="text-center"><input type="submit" value="Delete Account" className="btn btn-danger" /></div>
+                    <div className="text-center"><button type="submit" className="btn btn-danger">{buttonLoader ? <Loader type="ThreeDots" color="white" height={28} width={80} /> : "Delete Account"}</button></div>
                 </Form>
             </Col>
         </div>

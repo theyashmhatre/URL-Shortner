@@ -4,9 +4,11 @@ import UserContext from "../context/UserContext";
 import { useHistory, Link } from 'react-router-dom';
 import ErrorNotice from "./Layout/ErrorNotice";
 import { Form, Col } from "react-bootstrap";
+import Loader from 'react-loader-spinner';
 
 export default function ForgotPassword() {
     const [notif, setNotif] = useState();
+    const [buttonLoader, setButtonLoader] = useState(false);
     const [user, setUser] = useState({ email: "" });
     const { userData, setUserData } = useContext(UserContext);
     const history = useHistory();
@@ -21,6 +23,7 @@ export default function ForgotPassword() {
 
     const onSubmit = async (e) => {
         e.preventDefault();
+        setButtonLoader(true);
         setNotif(undefined);
         try {
             const userInfo = {
@@ -37,6 +40,7 @@ export default function ForgotPassword() {
         } catch (err) {
             err.response.data.msg && setNotif(err.response.data.msg);
         }
+        setButtonLoader(false);
     };
 
     useEffect(() => {
@@ -61,7 +65,7 @@ export default function ForgotPassword() {
                             Verification Link will be sent to this email.
                     </Form.Text>
                     </Form.Group>
-                    <div className="text-center"><input type="submit" value="Send Link" className="btn btn-primary" /></div>
+                    <div className="text-center"><button type="submit" className="btn btn-primary">{buttonLoader ? <Loader type="ThreeDots" color="#00BFFF" height={28} width={70} /> : "Send Link"}</button></div>
                 </Form>
             </Col>
         </div>

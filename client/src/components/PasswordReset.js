@@ -15,6 +15,7 @@ export default function PasswordReset() {
 
     const { id, token } = useParams();
     const [linkChecked, setLinkChecked] = useState(false);
+    const [buttonLoader, setButtonLoader] = useState(false);
     const [notif, setNotif] = useState();
     const history = useHistory();
 
@@ -28,6 +29,7 @@ export default function PasswordReset() {
 
     const onSubmit = async (e) => {
         e.preventDefault();
+        setButtonLoader(true);
         setNotif(undefined);
         try {
             const newPassword = {
@@ -52,6 +54,7 @@ export default function PasswordReset() {
         } catch (err) {
             err.response.data.msg && setNotif(err.response.data.msg);
         }
+        setButtonLoader(false);
     };
 
     useEffect(() => {
@@ -104,8 +107,7 @@ export default function PasswordReset() {
                                     onChange={handleChange}
                                     value={user.passwordCheck} />
                             </Form.Group>
-                            <div className="text-center"><input type="submit" value="Reset" className="btn btn-primary" /></div>
-
+                            <div className="text-center"><button type="submit" className="btn btn-primary">{buttonLoader ? <Loader type="ThreeDots" color="#00BFFF" height={28} width={40} /> : "Reset"}</button></div>
                         </Form>
                     </Col></div>
             ) :
