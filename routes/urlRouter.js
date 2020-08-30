@@ -14,7 +14,7 @@ router.post("/add", auth, async (req, res) => {
         if (!url)
             return res.status(400).json({ msg: "Please fill up all the fields and retry." });
         if (!slug) {
-            slug = nanoid(4).toLowerCase();
+            slug = nanoid(4);
         }
 
         const existingSlug = await Url.findOne({ slug: slug });
