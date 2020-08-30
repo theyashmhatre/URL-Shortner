@@ -12,6 +12,8 @@ import UserContext from "./context/UserContext";
 import Header from './components/Layout/Header';
 import ConfirmPage from './components/ConfirmPage';
 import Settings from './components/Settings';
+import PasswordReset from './components/PasswordReset';
+import ForgotPassword from './components/ForgotPassword';
 
 function App() {
 
@@ -62,6 +64,8 @@ function App() {
             <Route exact path="/create" component={CreateURLPage}></Route>
             <Route exact path="/settings" component={Settings}></Route>
             <Route exact path="/confirm/:id" component={ConfirmPage}></Route>
+            <Route exact path="/forgot/password" component={ForgotPassword}></Route>
+            <Route exact path="/password/reset/:id/:token" component={PasswordReset}></Route>
             <Redirect from='*' to='/' />
           </Switch>
 

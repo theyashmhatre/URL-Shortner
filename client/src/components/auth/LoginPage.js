@@ -98,6 +98,7 @@ function LoginPage() {
                             autoComplete="current-password"
                             value={user.password} />
                     </Form.Group>
+                    <p>Forgot Password? <a href="/forgot/password">Click here</a></p>
 
                     <div className="text-center"><input type="submit" value="Login" className="btn btn-primary" /></div>
 

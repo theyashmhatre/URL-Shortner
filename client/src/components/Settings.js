@@ -88,6 +88,7 @@ export default function Settings() {
                             type="email"
                             placeholder="Enter email"
                             name="email"
+                            autoComplete="email"
                             onChange={handleChange}
                             value={user.email} />
                         <Form.Text className="text-muted">
