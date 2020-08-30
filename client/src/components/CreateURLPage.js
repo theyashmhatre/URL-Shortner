@@ -129,7 +129,7 @@ function CreateURLPage() {
                             onChange={handleChange}
                             value={newURL.slug} />
                         <Form.Text className="text-muted">
-                            Final link will be https://ur1-s.herokuapp.com/slug
+                            Final link will be https://ur1-rd.herokuapp.com/slug
     </Form.Text>
                     </Form.Group>
                     <div><button type="submit" className="btn btn-primary">{buttonLoader ? <Loader type="ThreeDots" color="#00BFFF" height={30} width={50} /> : "Submit"}</button></div>
